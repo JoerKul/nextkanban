@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { v4 as uuid } from 'uuid';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
 
 export type Status = 'TODO' | 'PROGRESS' | 'DONE';
 
@@ -9,6 +9,7 @@ export type Task = {
   title: string;
   description: string;
   status: Status;
+  createdAt: Date;
 };
 
 export type State = {
@@ -37,6 +38,7 @@ export const useTaskStore = create<State & Actions>()(
               title,
               description,
               status: 'TODO',
+              createdAt: new Date(),
             },
           ],
         }));

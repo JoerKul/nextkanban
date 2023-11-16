@@ -1,6 +1,7 @@
 'use client';
 import { Status, useTaskStore } from '@/lib/store';
 import { cn } from '@/lib/utils';
+import moment from 'moment';
 import React from 'react';
 
 type TaskProps = {
@@ -8,9 +9,10 @@ type TaskProps = {
   title: string;
   description: string;
   status: Status;
+  createdAt: Date;
 };
 
-function Task({ id, title, description, status }: TaskProps) {
+function Task({ id, title, description, status, createdAt }: TaskProps) {
   const dragTask = useTaskStore((state) => state.dragTask);
   const removeTask = useTaskStore((state) => state.removeTask);
 
@@ -32,6 +34,7 @@ function Task({ id, title, description, status }: TaskProps) {
           {title}
         </h3>
         <p className='text-sm font-light text-gray-500'>{description}</p>
+        <p className='text-xs text-gray-500'>{moment(createdAt).fromNow()}</p>
       </div>
       <button onClick={() => removeTask(id)} className='cursor-pointer'>
         <svg
